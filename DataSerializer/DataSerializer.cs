@@ -68,16 +68,22 @@ namespace ToolBox.Serialization
 		public static void DeleteAll() =>
 			_data.Clear();
 
-		public static void ChangeProfile(int profileIndex)
+		public static void ChangeProfile(int profileIndex, bool saveCurrentFile = true, bool loadNextFile = true)
 		{
 			if (_currentProfileIndex == profileIndex)
 				return;
 
-			SaveFile();
+			if (saveCurrentFile)
+			{
+				SaveFile();
+			}
 
 			_currentProfileIndex = profileIndex;
 			GeneratePath();
-			LoadFile();
+			if (loadNextFile)
+			{
+				LoadFile();
+			}
 		}
 
 		[RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.SubsystemRegistration)]
@@ -101,12 +107,22 @@ namespace ToolBox.Serialization
 			observer.OnQuit += SaveFile;
 		}
 
+		public static void RequestSaveFile()
+		{
+			SaveFile();
+		}
+		
 		private static void SaveFile()
 		{
 			FileSaving?.Invoke();
 
 			var bytes = Serialize(_data);
 			File.WriteAllBytes(_savePath, bytes);
+		}
+
+		public static void RequestLoadFile()
+		{
+			LoadFile();
 		}
 
 		private static void LoadFile()
