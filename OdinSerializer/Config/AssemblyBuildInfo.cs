@@ -16,6 +16,8 @@
 // </copyright>
 //-----------------------------------------------------------------------
 
+using PlasticGui;
+
 #if UNITY_EDITOR
 
 namespace ToolBox.Serialization.OdinSerializer.Utilities.Editor
@@ -95,9 +97,7 @@ namespace ToolBox.Serialization.OdinSerializer.Utilities.Editor
             BuildTarget.StandaloneWindows,
             BuildTarget.StandaloneWindows64,
 
-            BuildTarget.StandaloneLinux,
             BuildTarget.StandaloneLinux64,
-            BuildTarget.StandaloneLinuxUniversal,
 
             BuildTarget.Android,
         };
